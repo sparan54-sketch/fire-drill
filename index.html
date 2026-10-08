@@ -4,9 +4,126 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Fire drill</title>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<p>Loading the app.</p>
+<header>
+  <h1>Fire drill</h1>
+  <div class="sub">Drop the exports. Ticket stays locked until counsel's sentence is pasted. Not a Vendor Central login.</div>
+</header>
+<nav>
+  <button class="on" data-tab="call">Call</button>
+  <button data-tab="asins">ASINs</button>
+  <button data-tab="ticket">APA ticket</button>
+  <button data-tab="money">Chargebacks</button>
+  <button data-tab="fill">Fill rate</button>
+  <button data-tab="decks">Decks</button>
+</nav>
+<main>
+  <section id="call" class="on">
+    <div class="card">
+      <h2>Say this. Do not open with sorry.</h2>
+      <p class="minute">0-2</p>
+      <p>Here for fill rate, chargebacks, and one compliance item. I want to leave with owners and dates.</p>
+      <p class="dont">Do not say: sorry I am frazzled.</p>
+      <p class="minute">2-8</p>
+      <p id="fill-line">Fill rate is not loaded. Do not invent a number.</p>
+      <p class="dont">Do not invent a round number.</p>
+      <p class="minute">8-14</p>
+      <p id="cb-line">Chargeback export is not loaded.</p>
+      <p class="dont">Do not say you will dispute everything.</p>
+      <p class="minute">14-18</p>
+      <p id="warner-line">Warner: ASINs not loaded. Copy stays frozen. No live date.</p>
+      <p class="dont">Do not read them a disclaimer you wrote.</p>
+      <p class="minute">18-30</p>
+      <p>Asks: the fill-rate window Amazon is scoring, chargeback types still inside the dispute window, and who owns a listing escalation if Warner files. Repeat the three. Stop talking.</p>
+      <p class="dont">Do not promise APA can finish today.</p>
+    </div>
+    <div class="stats" id="call-stats"></div>
+  </section>
+  <section id="asins">
+    <div class="card">
+      <h2>ASIN export</h2>
+      <p class="muted">CSV or paste. Headers detected. A row is flagged if the approved sentence is missing from title, bullets, and description.</p>
+      <div class="drop" id="asin-drop">Drop a CSV, or paste below.</div>
+      <input type="file" id="asin-file" accept=".csv,text/csv,text/plain" />
+      <label>Approved disclaimer from counsel. Leave blank if you do not have it.</label>
+      <textarea id="disclaimer" placeholder="Paste the exact sentence. The app will not write one."></textarea>
+      <label>Paste if you are not dropping a file</label>
+      <textarea id="asin-paste" placeholder="ASIN, Title, Bullet 1, Description"></textarea>
+      <div id="asin-map" class="mapgrid"></div>
+      <div class="actions">
+        <button class="primary" id="parse-asins">Read ASINs</button>
+        <button id="clear-asins">Clear</button>
+      </div>
+    </div>
+    <div class="stats" id="asin-stats"></div>
+    <div class="card" style="overflow:auto">
+      <table>
+        <thead><tr><th>ASIN</th><th>Where</th><th>Status</th></tr></thead>
+        <tbody id="asin-body"></tbody>
+      </table>
+    </div>
+  </section>
+  <section id="ticket">
+    <div class="card">
+      <h2>APA ticket</h2>
+      <p class="muted" id="ticket-lock">Copy is off until the disclaimer box has text and at least one row is Ready.</p>
+      <pre id="ticket-out">No ASIN export loaded.</pre>
+      <div class="actions">
+        <button class="primary" id="copy-ticket" disabled>Copy ticket</button>
+        <button id="download-ticket" disabled>Download .txt</button>
+      </div>
+    </div>
+  </section>
+  <section id="money">
+    <div class="card">
+      <h2>Chargeback / defect export</h2>
+      <p class="muted">Vendor Central path: Reports, Operational Performance, Total Chargebacks, View Defect List. Headers are mapped and remembered.</p>
+      <div class="drop">Drop a CSV, or paste below.</div>
+      <input type="file" id="cb-file" accept=".csv,text/csv,text/plain" />
+      <textarea id="cb-paste" placeholder="chargeback id, warehouse, defect type, amount"></textarea>
+      <div id="cb-map" class="mapgrid"></div>
+      <div class="actions">
+        <button class="primary" id="parse-cb">Read chargebacks</button>
+        <button id="clear-cb">Clear</button>
+      </div>
+    </div>
+    <div class="stats" id="cb-stats"></div>
+    <div class="card" style="overflow:auto">
+      <table>
+        <thead><tr><th>Type</th><th>Dollars</th><th>Rows</th></tr></thead>
+        <tbody id="cb-body"></tbody>
+      </table>
+    </div>
+  </section>
+  <section id="fill">
+    <div class="card">
+      <h2>Fill export</h2>
+      <p class="muted">Units confirmed and units shipped by week. Fill rate is shipped divided by confirmed.</p>
+      <input type="file" id="fill-file" accept=".csv,text/csv,text/plain" />
+      <textarea id="fill-paste" placeholder="week, confirmed, shipped"></textarea>
+      <div class="actions">
+        <button class="primary" id="parse-fill">Read fill</button>
+        <button id="clear-fill">Clear</button>
+      </div>
+      <label>Cause line, editable</label>
+      <input id="cause" value="Confirming above allocated stock" />
+    </div>
+    <div class="stats" id="fill-stats"></div>
+  </section>
+  <section id="decks">
+    <div class="card">
+      <h2>Chargeback deck</h2>
+      <div id="cb-deck" class="sheet">Load a chargeback export to write the five lines.</div>
+    </div>
+    <div class="card">
+      <h2>Fill-rate deck</h2>
+      <div id="fill-deck" class="sheet">Load a fill export to write the five lines.</div>
+    </div>
+  </section>
+</main>
+<footer class="note">Internal. Not legal advice. Do not send a screen that still says sample.</footer>
 <script src="app.js"></script>
 </body>
 </html>
